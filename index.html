@@ -7,7 +7,6 @@
     <title>EXP</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -71,46 +70,52 @@
                         <col class="col-xs-4">
                             <col class="col-xs-6">
                                 <col class="col-xs-2">
-                                    <tr>
-                                        <th>Card Level</th>
-                                        <th>Quantity</th>
-                                        <th></th>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select id="card-lvl" class="col-sm-2 form-control">
-                                                <option disabled selected>Card Rank</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" placeholder="Quantity" min="0">
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-default" aria-label="Remove">
-                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
                     </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Card Level</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select id="card-lvl" class="col-sm-2 form-control">
+                                    <option disabled selected>Card Rank</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" placeholder="Quantity" min="0">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Remove">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            <input type="submit" value="Go" class="btn btn-primary submit">
+            <input id="button-s" type="button" value="Go" class="btn btn-primary submit" onclick="expFromCards();">
         </form>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="tos.js"></script>
 </body>
 
 </html>
