@@ -10,12 +10,14 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div id="container" class="container-fluid">
         <form class="form-horizontal">
 
             <div id="character">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Character</div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Character</h3>
+                    </div>
                     <div class="panel-body">
                         <div class="form-group">
                             <div class="col-xs-4">
@@ -32,7 +34,9 @@
                 </div>
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Class</div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Class</h3>
+                    </div>
                     <div class="panel-body">
                         <div class="form-group">
                             <div class="col-xs-12">
@@ -112,9 +116,19 @@
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                 </button>
 
-                <input id="button-s" type="button" value="Go" class="btn btn-primary submit" onclick="expFromCards();">
+                <input id="button-s" type="button" value="Go" class="btn btn-primary submit" onclick="fillResults();">
             </div>
         </form>
+        
+        <div id="results" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Results</h3>
+            </div>
+            <div class="panel-body">
+                
+            </div>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
