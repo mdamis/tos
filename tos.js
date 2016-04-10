@@ -14,13 +14,26 @@ function classExpFromCard(cardLevel, quantity) {
     return CARD_CLASS_EXP[cardLevel - 1] * quantity;
 }
 
-function totalCharacterExpFromLevel(characterLevel) {
-    return characterLevel ? TOTAL_CHARACTER_EXP[characterLevel - 2] : 0;
+function totalCharacterExpFromLevel(characterLevel, progression) {
+    if(characterLevel) {
+        var totalCharacterExp = TOTAL_CHARACTER_EXP[characterLevel - 2];
+        if(characterLevel <= TOTAL_CHARACTER_EXP.length && progression) {
+            var nextLevelExp = CHARACTER_EXP[characterLevel - 1];
+            totalCharacterExp += Math.round(nextLevelExp * progression / 100);
+        }
+        return totalCharacterExp;
+    }
+    return 0;
 }
 
-function totalClassExpFromRankAndLevel(classRank, classLevel) {
+function totalClassExpFromRankAndLevel(classRank, classLevel, progression) {
     if (classRank && classLevel) {
-        return TOTAL_CLASS_EXP[(parseInt(classRank) - 1) * 15 + parseInt(classLevel) - 1];
+        var totalClassExp = TOTAL_CLASS_EXP[(parseInt(classRank) - 1) * 15 + parseInt(classLevel) - 1];
+        if(classLevel != 15 && progression) {
+            var nextLevelExp = TOTAL_CLASS_EXP[(parseInt(classRank) - 1) * 15 + parseInt(classLevel)] - totalClassExp;
+            totalClassExp += Math.round(nextLevelExp * progression / 100);
+        }
+        return totalClassExp;
     } else {
         return 0;
     }
@@ -71,8 +84,8 @@ function expFromCards() {
 function fillResults() {
     $("#results > .panel-body").empty();
 
-    var totalCharacterExp = totalCharacterExpFromLevel($("#character-level").val());
-    var totalClassExp = totalClassExpFromRankAndLevel($("#class-rank").val(), $("#class-level").val());
+    var totalCharacterExp = totalCharacterExpFromLevel($("#character-level").val(), $("#character-level-progression").val());
+    var totalClassExp = totalClassExpFromRankAndLevel($("#class-rank").val(), $("#class-level").val(), $("#class-level-progression").val());
     $("#results > .panel-body").append('<p>Total Character EXP : ' + totalCharacterExp + '<br>Total Class EXP : ' + totalClassExp + '</p>');
     var exp = expFromCards();
     $("#results > .panel-body").append('<p>Character EXP from cards : ' + exp.characterExp + '<br>Class Exp from cards : ' + exp.classExp + '</p>');
