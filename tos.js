@@ -89,3 +89,31 @@ function addExpCard() {
 $(document).on("click", "button.remove", function () {
     $(this).closest("tr").remove();
 });
+
+$("#character-level-progression").change(function() {
+    var progression = Math.round(parseFloat($(this).val()) * 10) / 10;
+    if(progression > 100) {
+        progression = 100;
+    }
+    if(progression < 0) {
+        progression = 0;
+    }
+    $(this).val(progression);
+    var characterProgressBar = $("#character-progress");
+    characterProgressBar.text(progression + "%");
+    characterProgressBar.attr("style", "width: " + progression + "%;")
+});
+
+$("#class-level-progression").change(function() {
+    var progression = Math.round(parseFloat($(this).val()) * 10) / 10;
+    if(progression > 100) {
+        progression = 100;
+    }
+    if(progression < 0) {
+        progression = 0;
+    }
+    $(this).val(progression);
+    var classProgressBar = $("#class-progress");
+    classProgressBar.text(progression + "%");
+    classProgressBar.attr("style", "width: " + progression + "%;")
+});
