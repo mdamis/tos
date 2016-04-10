@@ -130,3 +130,12 @@ $("#class-level-progression").change(function() {
     classProgressBar.text(progression + "%");
     classProgressBar.attr("style", "width: " + progression + "%;")
 });
+
+$(document).on({
+    mouseenter: function() {
+        $(this).toggleClass("btn-danger"); 
+    },
+    mouseleave : function() {
+        $(this).toggleClass("btn-danger"); 
+    }
+}, ".remove");
