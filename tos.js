@@ -15,9 +15,9 @@ function classExpFromCard(cardLevel, quantity) {
 }
 
 function totalCharacterExpFromLevel(characterLevel, progression) {
-    if(characterLevel) {
+    if (characterLevel) {
         var totalCharacterExp = TOTAL_CHARACTER_EXP[characterLevel - 2];
-        if(characterLevel <= TOTAL_CHARACTER_EXP.length && progression) {
+        if (characterLevel <= TOTAL_CHARACTER_EXP.length && progression) {
             var nextLevelExp = CHARACTER_EXP[characterLevel - 1];
             totalCharacterExp += Math.round(nextLevelExp * progression / 100);
         }
@@ -29,7 +29,7 @@ function totalCharacterExpFromLevel(characterLevel, progression) {
 function totalClassExpFromRankAndLevel(classRank, classLevel, progression) {
     if (classRank && classLevel) {
         var totalClassExp = TOTAL_CLASS_EXP[(parseInt(classRank) - 1) * 15 + parseInt(classLevel) - 1];
-        if(classLevel != 15 && progression) {
+        if (classLevel != 15 && progression) {
             var nextLevelExp = TOTAL_CLASS_EXP[(parseInt(classRank) - 1) * 15 + parseInt(classLevel)] - totalClassExp;
             totalClassExp += Math.round(nextLevelExp * progression / 100);
         }
@@ -96,19 +96,63 @@ function fillResults() {
 }
 
 function addExpCard() {
-    $("table > tbody").append('<tr><td><select id="card-lvl" class="col-sm-2 form-control"><option disabled selected>Card Rank</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option> <option value="12">12</option></select></td><td><input type="number" class="form-control" placeholder="Quantity" min="0"></td><td><button type="button" class="btn btn-default remove" aria-label="Remove"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button></td></tr></tr>');
+    $("table > tbody").append('<tr> <td> <select id="card-lvl" class="col-sm-2 form-control"> <option selected value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> <option value="6">6</option> <option value="7">7</option> <option value="8">8</option> <option value="9">9</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option> </select> </td> <td> <input type="number" class="form-control card-quantity" value="0" min="0"> </td> <td> <div class="btn-group btn-group-justified" role="group" aria-label="..."> <div class="btn-group" role="group"> <button type="button" class="btn btn-default plus" aria-label="Plus"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button> </div> <div class="btn-group" role="group"> <button type="button" class="btn btn-default minus" aria-label="Minus"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button> </div> <div class="btn-group" role="group"> <button type="button" class="btn btn-default remove" aria-label="Remove"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button> </div> </div> </td> </tr>');
 }
+
+var timeoutId;
+var intervalId;
+
+$(document).on("mousedown", "button.plus", function () {
+    var quantityInput = $(this).closest("tr").find("td input");
+    var quantity = parseInt(quantityInput.val()) + 1;
+    quantityInput.val(quantity);
+    timeoutId = setTimeout(function () {
+        intervalId = setInterval(function () {
+            quantityInput.val(quantity++)
+        }, 50);
+    }, 250);
+});
+
+$(document).on("mouseup", "button.plus, button.minus", function () {
+    clearTimeout(timeoutId);
+    clearInterval(intervalId);
+});
+
+$(document).on("mousedown", "button.minus", function () {
+    var quantityInput = $(this).closest("tr").find("td input");
+    var quantity = parseInt(quantityInput.val());
+    if (quantity > 0) {
+        quantity--;
+    }
+    quantityInput.val(quantity);
+    timeoutId = setTimeout(function () {
+        intervalId = setInterval(function () {
+            if (quantity > 0) {
+                quantity--;
+            }
+            quantityInput.val(quantity);
+        }, 50);
+    }, 250);
+});
 
 $(document).on("click", "button.remove", function () {
     $(this).closest("tr").remove();
 });
 
-$("#character-level-progression").change(function() {
+$(document).on("change", "input.card-quantity", function () {
+    var quantity = Math.floor($(this).val());
+    if (quantity < 0) {
+        quantity = 0;
+    }
+    $(this).val(quantity);
+});
+
+$("#character-level-progression").change(function () {
     var progression = Math.round(parseFloat($(this).val()) * 10) / 10;
-    if(progression > 100) {
+    if (progression > 100) {
         progression = 100;
     }
-    if(progression < 0) {
+    if (progression < 0) {
         progression = 0;
     }
     $(this).val(progression);
@@ -117,12 +161,12 @@ $("#character-level-progression").change(function() {
     characterProgressBar.attr("style", "width: " + progression + "%;")
 });
 
-$("#class-level-progression").change(function() {
+$("#class-level-progression").change(function () {
     var progression = Math.round(parseFloat($(this).val()) * 10) / 10;
-    if(progression > 100) {
+    if (progression > 100) {
         progression = 100;
     }
-    if(progression < 0) {
+    if (progression < 0) {
         progression = 0;
     }
     $(this).val(progression);
@@ -132,10 +176,10 @@ $("#class-level-progression").change(function() {
 });
 
 $(document).on({
-    mouseenter: function() {
-        $(this).toggleClass("btn-danger"); 
+    mouseenter: function () {
+        $(this).toggleClass("btn-danger");
     },
-    mouseleave : function() {
-        $(this).toggleClass("btn-danger"); 
+    mouseleave: function () {
+        $(this).toggleClass("btn-danger");
     }
 }, ".remove");
