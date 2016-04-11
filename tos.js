@@ -147,6 +147,17 @@ $(document).on("change", "input.card-quantity", function () {
     $(this).val(quantity);
 });
 
+$("#character-level").change(function() {
+    var level = Math.floor(parseFloat($(this).val()));
+    if(level > TOTAL_CHARACTER_EXP.length + 1) {
+        level = TOTAL_CHARACTER_EXP.length + 1;
+    }
+    if(level < 1) {
+        level = 1;
+    }
+    $(this).val(level);
+});
+
 $("#character-level-progression").change(function () {
     var progression = Math.round(parseFloat($(this).val()) * 10) / 10;
     if (progression > 100) {
@@ -158,7 +169,18 @@ $("#character-level-progression").change(function () {
     $(this).val(progression);
     var characterProgressBar = $("#character-progress");
     characterProgressBar.text(progression + "%");
-    characterProgressBar.attr("style", "width: " + progression + "%;")
+    characterProgressBar.attr("style", "width: " + progression + "%;");
+});
+
+$("#class-level").change(function () {
+    var level = Math.floor(parseFloat($(this).val()));
+    if (level > 15) {
+        level = 15;
+    }
+    if (level < 1) {
+        level = 1;
+    }
+    $(this).val(level);
 });
 
 $("#class-level-progression").change(function () {
